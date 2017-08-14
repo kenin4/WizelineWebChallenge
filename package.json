@@ -1,0 +1,25 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "description": "This is a little URL Shortener REST Application made using Node.js, Express and ShortId",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenin4/WizelineWebChallenge.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "URL",
+    "Wizeline"
+  ],
+  "author": "Kevin Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenin4/WizelineWebChallenge/issues"
+  },
+  "homepage": "https://github.com/kenin4/WizelineWebChallenge#readme"
+}
