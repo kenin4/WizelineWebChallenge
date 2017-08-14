@@ -21,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/kenin4/WizelineWebChallenge/issues"
   },
-  "homepage": "https://github.com/kenin4/WizelineWebChallenge#readme"
+  "homepage": "https://github.com/kenin4/WizelineWebChallenge#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6",
+    "shortid": "^2.2.8"
+  }
 }
