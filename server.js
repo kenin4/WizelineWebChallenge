@@ -17,4 +17,4 @@ routes(app);
 
 app.listen(port);
 
-console.log('URL shortener RESTful API server started on : ' + port);
+console.log('URL shortener API server started on : ' + port);

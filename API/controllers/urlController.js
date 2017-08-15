@@ -25,10 +25,7 @@ exports.getUrl = function (req, res) {
 	Url.findById(req.params.urlId, function (err, url) {
 		if (err) 
 			res.send(err);
-		res.writeHead(302, {
-		  'Location': url.longUrl
-		});
-		res.end();
+		res.json(url);
 	})
 } 
 
