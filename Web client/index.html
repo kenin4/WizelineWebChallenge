@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener Web Client</title>
+    <link rel="stylesheet" href="./assets/vendor/css/bootstrap.css">
+    <script src="./assets/vendor/js/jquery-3.2.1.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="margin: 20px">
+                    <h1>
+						Welcome to Wizeline's URL Shortener Web Challenge!
+					</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+		   <div class="col-lg-12">
+		   <form id="urlShortenerForm">
+			    <div class="input-group input-group-lg" style="margin: 20px;">
+			      <input id="longUrl" name="longUrl" type="text" class="form-control input-lg" id="search-church" placeholder="Enter you long (and ugly) URL to shorten it">
+			      <span class="input-group-btn">
+			        <button id="send" class="btn btn-success btn-lg">Shorten it!</button>
+			      </span>
+			    </div><!-- /input-group -->
+			</form>
+		  </div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" id="succesDialog" style="display: none;">
+                    <strong>Success! </strong> Here it is your shortened URL! : <a href="" id="generatedShortUrl" target="_blank"></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Short URL</th>
+                            <th>Original URL</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allRecords">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+function sendLongUrl() {
+    if ($('#longUrl').val().length == 0) {
+        alert('nel pastel');
+        return;
+    }
+    console.log($('#urlShortenerForm').serialize());
+    var originalUrl = $('#longUrl').val();
+
+    $.post("http://localhost:3030", $('#urlShortenerForm').serialize(), function(data) {
+
+        $('#generatedShortUrl').attr('href', 'http://localhost:3030/' + data._id);
+        $('#generatedShortUrl').html('cut.me/' + data._id);
+
+        $('#succesDialog').show('slow');
+
+        getAllUrls();
+    })
+}
+
+function getAllUrls() {
+    $('#allRecords').empty();
+
+
+    $.ajax({
+        url: "http://localhost:3030",
+        type: "GET",
+        crossDomain: true,
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            var table = $('#allRecords');
+
+            for (i = 0; i < response.length; i++)
+                $('#allRecords').prepend('<tr><td> <a href="http://localhost:3030/' + response[i]._id + '" target="_blank">cut.me/' + response[i]._id + ' </a> </td><td> ' + response[i].longUrl + '</td>' + '<td> ' + response[i].createdDate + '</td></tr>');
+        },
+        error: function(xhr, status) {
+            alert("error");
+        }
+    });
+}
+
+$("form").submit(function(event) {
+    sendLongUrl();
+    event.preventDefault();
+});
+
+
+
+$(document).ready(function() {
+    //$('#send').click(sendLongUrl);
+    getAllUrls();
+});
+</script>
+
+</html>

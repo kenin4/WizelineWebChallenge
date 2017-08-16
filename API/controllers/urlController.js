@@ -7,6 +7,7 @@ exports.listAllUrls = function (req, res) {
 	Url.find({}, function(err, url){
 		if(err)
 			res.send(err);
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(url);
 	});
 };
@@ -17,6 +18,7 @@ exports.createUrl = function (req, res) {
 	newUrl.save(function (err, url) {
 		if (err) 
 			res.send(err);
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(url);
 	});
 };
@@ -25,7 +27,8 @@ exports.getUrl = function (req, res) {
 	Url.findById(req.params.urlId, function (err, url) {
 		if (err) 
 			res.send(err);
-		res.json(url);
+		res.redirect(url.longUrl);
+		//res.json(url);
 	})
 } 
 
