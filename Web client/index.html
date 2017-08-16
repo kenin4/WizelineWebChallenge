@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./assets/vendor/css/bootstrap.css">
     <script src="./assets/vendor/js/jquery-3.2.1.js"></script>
     <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script src="./assets/js/main.js"></script>
 </head>
 
 <body style="background-color: ghostwhite">
@@ -42,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-top: 50px">
                 <table class="table table-bordered table-hover">
                     <thead style="background-color: dimgray; color: whitesmoke">
                         <tr>
@@ -58,59 +59,5 @@
         </div>
     </div>
 </body>
-<script>
-function sendLongUrl() {
-    if ($('#longUrl').val().length == 0) {
-        alert('nel pastel');
-        return;
-    }
-    console.log($('#urlShortenerForm').serialize());
-    var originalUrl = $('#longUrl').val();
-
-    $.post("http://localhost:3030", $('#urlShortenerForm').serialize(), function(data) {
-
-        $('#generatedShortUrl').attr('href', 'http://localhost:3030/' + data._id);
-        $('#generatedShortUrl').html('cut.me/' + data._id);
-
-        $('#succesDialog').show('slow');
-
-        getAllUrls();
-    })
-}
-
-function getAllUrls() {
-    $('#allRecords').empty();
-
-
-    $.ajax({
-        url: "http://localhost:3030",
-        type: "GET",
-        crossDomain: true,
-        dataType: "json",
-        success: function(response) {
-            console.log(response);
-            var table = $('#allRecords');
-
-            for (i = 0; i < response.length; i++)
-                $('#allRecords').prepend('<tr><td> <a href="http://localhost:3030/' + response[i]._id + '" target="_blank">cut.me/' + response[i]._id + ' </a> </td><td> ' + response[i].longUrl + '</td>' + '<td> ' + response[i].createdDate + '</td></tr>');
-        },
-        error: function(xhr, status) {
-            alert("error");
-        }
-    });
-}
-
-$("form").submit(function(event) {
-    sendLongUrl();
-    event.preventDefault();
-});
-
-
-
-$(document).ready(function() {
-    //$('#send').click(sendLongUrl);
-    getAllUrls();
-});
-</script>
 
 </html>
