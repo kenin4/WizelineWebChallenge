@@ -16,9 +16,9 @@ exports.createUrl = function (req, res) {
 	var newUrl = new Url(req.body);
 
 	newUrl.save(function (err, url) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		if (err) 
 			res.send(err);
-		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.json(url);
 	});
 };
@@ -27,8 +27,10 @@ exports.getUrl = function (req, res) {
 	Url.findById(req.params.urlId, function (err, url) {
 		if (err) 
 			res.send(err);
-		res.redirect(url.longUrl);
-		//res.json(url);
+		if(url != null)
+			res.redirect(url.longUrl);
+		else
+			res.json("This URL does not exist");
 	})
 } 
 

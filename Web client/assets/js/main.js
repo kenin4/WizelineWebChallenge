@@ -1,6 +1,6 @@
 function sendLongUrl() {
     if ($('#longUrl').val().length == 0) {
-        alert('nel pastel');
+        alert('The URL field cannot be empty');
         return;
     }
     console.log($('#urlShortenerForm').serialize());
@@ -8,7 +8,7 @@ function sendLongUrl() {
 
     $.post("http://localhost:3030", $('#urlShortenerForm').serialize(), function(data) {
 
-        $('#generatedShortUrl').attr('href', 'http://localhost:3030/' + data._id);
+        $('#generatedShortUrl').attr('href', 'http://cut.me:3030/' + data._id);
         $('#generatedShortUrl').html('cut.me/' + data._id);
 
         $('#succesDialog').show('slow');
@@ -31,18 +31,15 @@ function getAllUrls() {
             var table = $('#allRecords');
 
             for (i = 0; i < response.length; i++)
-                $('#allRecords').prepend('<tr><td> <a href="http://localhost:3030/' + response[i]._id + '" target="_blank">cut.me/' + response[i]._id + ' </a> </td><td> ' + response[i].longUrl + '</td>' + '<td> ' + dateFormat(response[i].createdDate) + '</td></tr>');
+                $('#allRecords').prepend('<tr><td> <a href="http://cut.me:3030/' + response[i]._id + '" target="_blank">cut.me:3030/' + response[i]._id + ' </a> </td><td> ' + response[i].longUrl + '</td>' + '<td> ' + dateFormat(response[i].createdDate) + '</td></tr>');
         },
         error: function(xhr, status) {
-            alert("error");
+            alert("No se puede conectar a la base de datos");
         }
     });
 }
 
-$("form").submit(function(event) {
-    sendLongUrl();
-    event.preventDefault();
-});
+
 
 function dateFormat(string)
 {
@@ -54,4 +51,9 @@ function dateFormat(string)
 $(document).ready(function() {
     //$('#send').click(sendLongUrl);
     getAllUrls();
+
+    $("#urlShortenerForm").submit(function(event) {
+        sendLongUrl();
+        event.preventDefault();
+    });
 });

@@ -10,7 +10,8 @@ var UrlSchema = new Schema({
     'default': shortid.generate
 	},
 	longUrl : {
-		type : String
+		type : String,
+		required: [true,'This field cannot be empty']
 	},
 	createdDate:{
 		type : Date,
