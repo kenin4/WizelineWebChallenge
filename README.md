@@ -10,6 +10,7 @@ This Github reposository includes both API and Web Client to test the developed 
 - MongoDB
 - Mongoose
 - Express
+- Shortid
 
 
 ## Installation
