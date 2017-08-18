@@ -36,14 +36,16 @@ exports.getUrl = function (req, res) {
 
 exports.updateUrl = function (req, res) {
 	Url.findOneAndUpdate({_id : req.params.urlId}, req.body, {new : true}, function (err, url) {
-	if(err)
-		res.send(err);
-	res.json(url);	
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		if(err)
+			res.send(err);
+		res.json(url);	
 	});
 }
 
 exports.removeUrl = function (req, res) {
 	Url.remove({_id : req.params.urlId}, function (err, url) {
+		res.setHeader('Access-Control-Allow-Origin', '*');
 		if (err) 
 			res.send(err);
 		res.json({message : 'Url has been correctly deleted'});

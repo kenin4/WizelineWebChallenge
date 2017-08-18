@@ -30,6 +30,14 @@ function getAllUrls() {
             console.log(response);
             var table = $('#allRecords');
 
+            if(response.length > 0)
+                $('#infoTable').show();
+            else
+                $('#no-info').show();
+            
+
+
+
             for (i = 0; i < response.length; i++)
                 $('#allRecords').prepend('<tr><td> <a href="http://cut.me:3030/' + response[i]._id + '" target="_blank">cut.me:3030/' + response[i]._id + ' </a> </td><td> ' + response[i].longUrl + '</td>' + '<td> ' + dateFormat(response[i].createdDate) + '</td></tr>');
         },
